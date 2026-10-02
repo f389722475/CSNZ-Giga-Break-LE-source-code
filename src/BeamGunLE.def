@@ -1,0 +1,6 @@
+LIBRARY BeamGunLE
+EXPORTS
+    LE_Start=_LE_Start@4
+    LE_Stop=_LE_Stop@4
+    LE_Status=_LE_Status@4
+    LE_Version
