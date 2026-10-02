@@ -1,7 +1,12 @@
 #include <windows.h>
 1 VERSIONINFO
+#ifdef BUILD_DLL
 FILEVERSION 0,7,4,1
 PRODUCTVERSION 0,7,4,1
+#else
+FILEVERSION 0,7,4,2
+PRODUCTVERSION 0,7,4,2
+#endif
 FILEFLAGSMASK VS_FFI_FILEFLAGSMASK
 FILEFLAGS 0
 FILEOS VOS_NT_WINDOWS32
@@ -16,8 +21,13 @@ BEGIN
     BLOCK "040904b0"
     BEGIN
       VALUE "ProductName", "CSNZ BeamGunLE Native\0"
+#ifdef BUILD_DLL
       VALUE "ProductVersion", "0.7.4-native-r1-partial\0"
       VALUE "FileVersion", "0.7.4.1\0"
+#else
+      VALUE "ProductVersion", "0.7.4-r1-ipfix1\0"
+      VALUE "FileVersion", "0.7.4.2\0"
+#endif
 #ifdef BUILD_DLL
       VALUE "FileDescription", "Build-bound GoldSrc x86 native weapon extension\0"
       VALUE "OriginalFilename", "BeamGunLE.dll\0"

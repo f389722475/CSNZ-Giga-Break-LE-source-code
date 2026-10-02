@@ -1,0 +1,7 @@
+/build/
+/dist/
+**/payload/
+**/native.ini
+**/native.ini.backup-*
+**/native.ini.pending-*
+*.log

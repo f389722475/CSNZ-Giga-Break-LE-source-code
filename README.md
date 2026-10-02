@@ -1,5 +1,28 @@
 # CSNZ BeamGunLE — native C/C++ 0.7.4-r1
 
+## Connection hotfix: ipfix1
+
+The standalone launcher previously passed the server IP as `-ip "127.0.0.1"`.
+The game's command-line parser preserves those quotes, causing the connection to fail even with a correct INI.
+The launcher now passes the already-validated address without quotes; executable paths remain quoted.
+Only the standalone launcher behavior changes. Weapon logic and the game-build checks are unchanged.
+The fixed `CSNZ_LENative.exe` has file version **0.7.4.2**; `BeamGunLE.dll` remains on the 0.7.4.1 weapon implementation.
+
+The missing `build.cmd`, `package.ps1`, and `package/` installation scripts are restored.
+After building, run `package.ps1`, extract the generated Deploy ZIP, and run `Install.cmd` to generate
+`payload/native.ini` for your own game path and server. Then start the server normally and use `Start_Mod.cmd`.
+Do not run an unconfigured EXE directly from the build directory.
+
+For an existing compiled setup, replace only `CSNZ_LENative.exe` after exiting the game; keep your existing
+`BeamGunLE.dll` and `native.ini`. For manual configuration, copy `package/native.ini.example` to `native.ini`
+beside the EXE and DLL, then edit the game root, address, and port. The root must contain `Bin`.
+`127.0.0.1:30002` is only the default for a server on the same machine. For non-ASCII paths, save the INI as UTF-16 LE with a BOM.
+Never publish your generated INI or runtime logs.
+
+The connection defect was reproduced with the original code. Changing only IP quoting restored the actual
+isolated client/server connection and native `READY` initialization with the same weapon DLL.
+This is not account-authentication, combat, or multiplayer acceptance.
+
 A **native Windows x86 port** of the current 0.7.4 fix logic. The goal is to preserve the accepted feature scope,
 remove the JS / Frida / Python runtimes, and introduce no additional weapon behavior as part of this port.
 
@@ -61,7 +84,7 @@ Two separate ZIP archives are generated: Source and Deploy. Existing ZIP archive
 
 ## Validation Scope
 
-Validation for this release was limited to MSVC x86 compilation, export/dependency checks, and a standalone DLL load check. An installation preflight check
+Validation for the original 0.7.4-r1 release was limited to MSVC x86 compilation, export/dependency checks, and a standalone DLL load check. An installation preflight check
 also verified the target game build; the game was not launched for acceptance testing of the native version. Results previously obtained in actual gameplay with the old JS version do not automatically apply
 to this port.
 

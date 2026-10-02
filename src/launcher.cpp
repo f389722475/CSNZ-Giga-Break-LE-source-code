@@ -89,7 +89,9 @@ int start(const Config& c,const std::wstring& home){
     if(!mutex.h||GetLastError()==ERROR_ALREADY_EXISTS)throw std::runtime_error("Another native launcher is starting the game");
     if(!gameProcesses(c.launcher,true).empty())throw std::runtime_error("Exit the game first; this launcher never attaches to an existing session");
     std::wstring dllPath=home+L"\\BeamGunLE.dll";LocalDll dll(dllPath);dll.check();
-    std::wstring command=quote(c.launcher)+L" -ip "+quote(c.server)+L" -port "+std::to_wstring(c.port)+L" -loadmodeeventfromfile -loadzbskillfromfile -loadzombie5fromfile";
+    // The game's CheckParm preserves quotes. Server is already restricted to
+    // non-whitespace address characters; quote the executable path, not the IP.
+    std::wstring command=quote(c.launcher)+L" -ip "+c.server+L" -port "+std::to_wstring(c.port)+L" -loadmodeeventfromfile -loadzbskillfromfile -loadzombie5fromfile";
     STARTUPINFOW si{};si.cb=sizeof(si);PROCESS_INFORMATION pi{};
     if(!CreateProcessW(c.launcher.c_str(),command.data(),nullptr,nullptr,FALSE,0,nullptr,c.bin.c_str(),&si,&pi))throw std::runtime_error("Could not start CSOLauncher.exe");
     Handle process(pi.hProcess),primary(pi.hThread);
