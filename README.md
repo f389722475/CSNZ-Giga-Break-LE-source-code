@@ -41,7 +41,6 @@ Two separate ZIP archives are generated: Source and Deploy. Existing ZIP archive
 | `src/build_profile.h` | Instruction entry points and relocation information for the current build; not file hashes |
 | `src/native_runtime.cpp` | 9 native hooks, version gating, thread boundaries, deactivation cleanup, and DLL exports |
 | `src/launcher.cpp` | Native launcher; loads the DLL only into a version-matched game process that it has newly launched itself |
-| `package/` | Portable deployment scripts and user instructions; contains no personal configuration |
 | `third_party/minhook/` | Files required for x86 from upstream v1.3.4, with the complete license |
 
 ## Key Constraints
