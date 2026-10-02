@@ -64,7 +64,6 @@ Two separate ZIP archives are generated: Source and Deploy. Existing ZIP archive
 
 Validation for this release was limited to MSVC x86 compilation, export/dependency checks, and a standalone DLL load check. An installation preflight check
 also verified the target game build; the game was not launched for acceptance testing of the native version. Results previously obtained in actual gameplay with the old JS version do not automatically apply
-to this port. See `package/README_zh-CN.txt` for deployment instructions.
 
 ## Licensing and Distribution
 
